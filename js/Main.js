@@ -15,7 +15,7 @@ class UI {
     <div class="card-body">
       <strong>nombre Producto</strong>: ${Producto.nombre}
       <strong>Precio</strong>: ${Producto.precio}
-      <input name="delete" class="btn btn-danger" type="button" value="Button">
+      <input name="delete" class="btn btn-danger" type="button" value="Eliminar">
 
     </div>
     </div>
@@ -27,19 +27,17 @@ class UI {
   }
   deleteProduct(elemento) {
     if (elemento.name === "delete") {
-      elemento.parentElement.parentElement.parentElement.remove();
+      alertify.confirm( 
+        "This is a confirm dialog.",
+        function () { 
+          elemento.parentElement.parentElement.parentElement.remove();
+          alertify.success("Ok");
+        },
+        function () {
+          alertify.error("Cancel");
+        }
+      );
     }
-  }
-  showMesssage(message,cssClass) {
-   /*
-    const div = document.createElement('div'); 
-    div.className = `alert alert-${cssClass}`; 
-    div.appendChild(document.createTextNode(message));
-    const container = document.querySelector('.container');
-    const app = document.querySelector('#app');
-    container.insertBefore(div, app); 
-    */
-    
   }
 }
 
@@ -48,9 +46,7 @@ function Registrar(e) {
     const nombre = document.getElementById("nombre").value;
     const precio = document.getElementById("precio").value;
     if (nombre == "" || precio == "") {
-      document.getElementById('alert').innerHTML = `<div class="alert alert-danger" role="alert">
-      Error completa los campos
-     </div>`;
+      alertify.error("Error message");
       //alert("Inserte campos");
     } else {
       const Producto = new Product(nombre, precio);
@@ -58,14 +54,14 @@ function Registrar(e) {
       const ui = new UI();
       ui.addProduct(Producto);
       ui.Reset_form();
-      ui.showMesssage('agregado correctamente', 'success');
-      
+      alertify.success("Success message");
     }
     e.preventDefault();
-  }); 
-  document.getElementById("product-list").addEventListener("click", function (e) {
-    const ui = new UI();
-    ui.deleteProduct(e.target);
-  }); 
-
+  });
+  document
+    .getElementById("product-list")
+    .addEventListener("click", function (e) {
+      const ui = new UI();
+      ui.deleteProduct(e.target);
+    });
 }

@@ -50,7 +50,6 @@ function Registrar(e) {
       //alert("Inserte campos");
     } else {
       const Producto = new Product(nombre, precio);
-
       const ui = new UI();
       ui.addProduct(Producto);
       ui.Reset_form();
@@ -64,4 +63,6 @@ function Registrar(e) {
       const ui = new UI();
       ui.deleteProduct(e.target);
     });
+
 }
+

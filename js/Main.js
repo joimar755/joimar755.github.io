@@ -28,7 +28,7 @@ class UI {
   deleteProduct(elemento) {
     if (elemento.name === "delete") {
       alertify.confirm( 
-        "This is a confirm dialog.",
+        "Esta seguro que quieres eliminar",
         function () { 
           elemento.parentElement.parentElement.parentElement.remove();
           alertify.success("Ok");
